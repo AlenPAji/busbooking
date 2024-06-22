@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!----======== CSS ======== -->
+        <link rel="stylesheet" href="/stylesheets/admin.css">
+        <link rel="stylesheet" href="/stylesheets/table.css">
+        <link rel="stylesheet" href="/stylesheets/deletebutton.css">
+
+        <!----===== Iconscout CSS ===== -->
+        <link rel="stylesheet"
+            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        <link rel='stylesheet'
+            href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+        <link rel='stylesheet'
+            href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+        <title>Admin Panel</title>
+        <style>
+
+            
+            /* CSS */
+.bus-table {
+    list-style-type: none; /* Remove default list styles */
+    display: table; /* Display the list as a table */
+    width: 100%; /* Make the table fill its container */
+  }
+  
+  .bus-table li {
+    display: table-row; /* Display each list item as a table row */
+  }
+  
+  .bus-table div {
+    display: table-cell; /* Display each value container as a table cell */
+    padding: 8px; /* Add padding for spacing */
+    border-bottom: 1px solid #ccc; /* Add border between rows */
+  }
+
+  #addBusModal {
+  background-color: #fff; /* Light background */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 20px; /* Padding for content */
+  width: 500px; /* Adjust width as needed */
+  max-width: 80%; /* Responsive width */
+  position: fixed; /* Fixed positioning */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center positioning adjustment */
+  z-index: 10; /* Ensure modal appears above other elements */
+  display: none; /* Initially hidden */
+}
+
+.modal-content {
+  display: flex; /* Flexbox layout for form */
+  flex-direction: column; /* Stack form elements vertically */
+}
+
+.close {
+  color: #aaa; /* Gray close button color */
+  font-size: 28px; /* Larger close button font */
+  font-weight: bold; /* Thicker close button font */
+  cursor: pointer; /* Indicate clickable behavior */
+  position: absolute; /* Position close button in top right corner */
+  right: 10px; /* Adjust close button position */
+  top: 10px; /* Adjust close button position */
+}
+
+h2 {
+  margin-bottom: 15px; /* Spacing after heading */
+}
+
+.form-group {
+  margin-bottom: 10px; /* Spacing between form groups */
+}
+
+label {
+  display: block; /* Display labels on their own lines */
+  margin-bottom: 5px; /* Spacing after labels */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="time"] {
+  padding: 8px; /* Input field padding */
+  border: 1px solid #ccc; /* Input field border */
+  border-radius: 3px; /* Rounded input field corners */
+  width: 100%; /* Full-width input fields */
+}
+  
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="logo-name">
+                <div class="logo-image">
+                    <img src="data/logo.png" alt>
+                </div>
+
+                <span class="logo_name">Journey Sync.com</span>
+            </div>
+
+            <div class="menu-items">
+                <ul class="nav-links">
+                    <li><a href="/admin">
+                            <i class="uil uil-estate"></i>
+                            <span class="link-name">Dahsboard</span>
+                        </a></li>
+                    <li><a href="/admin/adminUsers">
+                            <i class="fi fi-rs-user"></i>
+                            <span class="link-name">Users</span>
+                        </a></li>
+                    <li><a href="/admin/buses">
+                            <i class="fi fi-rr-bus"></i>
+                            <span class="link-name">Buses</span>
+                        </a></li>
+                    <li><a href="/admin/reservation">
+                            <i class="fi fi-rr-memo-circle-check"></i>
+                            <span class="link-name">Reservations</span>
+                        </a></li>
+                    <li><a href="/admin/feedbacks">
+                            <i class="fi fi-rr-smiley-comment-alt"></i>
+                            <span class="link-name">FeedBacks</span>
+                        </a></li>
+                    <li><a href="/admin/routes">
+                            <i class="fi fi-rs-route"></i>
+                            <span class="link-name">Routes</span>
+                        </a></li>
+                </ul>
+
+                <ul class="logout-mode">
+                    <li><a id="popupButton">
+                            <i class="uil uil-signout"></i>
+                            <span class="link-name">Logout</span>
+                        </a></li>
+
+                    <li class="mode">
+                        <a href="#">
+                            <i class="uil uil-moon"></i>
+                            <span class="link-name">Dark Mode</span>
+                        </a>
+
+                        <div class="mode-toggle">
+                            <span class="switch"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="dashboard">
+            <div class="top">
+                <i class="uil uil-bars sidebar-toggle"></i>
+            </div>
+
+            <div class="popup" id="popupMessage">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <p>Are you sure you want to sign out?</p>
+                <button id="signout">Logout</button>
+            </div>
+
+            <div class="dash-content">
+                <div class="overview">
+                    <div class="title">
+                        <i class="fi fi-rs-bus-alt"></i>
+                        <span class="text">Buses</span>
+                    </div>
+                    <div class="field" id="field">
+                        
+                        <table>
+                            <thead>
+                                <tr class="table100-head">
+                                    <th class="column1">Bus Id</th>
+                                    <th class="column2">Bus Name</th>
+                                    <th class="column4">From</th>
+                                    <th class="column5">To</th>
+                                    <th class="column5">Journery Day</th>
+                                    <th class="column6">Departure</th>
+                                    <th class="column6">Seats</th>
+                                    <th class="column8"
+                                        style="padding-right: 30px;">Delete</th>
+                                </tr>
+                            </thead>
+                        </table>
+                       <!-- HTML -->
+<ul id="buses-list" class="bus-table"></ul>
+
+                    </div>
+                    <button id="addBusBtn" class="add-bus-btn">Add Bus</button>
+                </div>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                </div>
+            </section>
+        </section>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+<!-- Your custom JavaScript files -->
+{{!-- <script src="/javascripts/adminLogout.js"></script> --}}
+<script src="/javascripts/modal.js"></script>
+<script src="/javascripts/modeToggle.js"></script>
+<script src="/javascripts/adminBuses.js"></script>
+</html>
