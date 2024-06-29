@@ -7,6 +7,7 @@ var session=require("express-session");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var db=require("./config/connection");
+var exphbs = require('express-handlebars');
 var app = express();
 
 app.use(session({
@@ -20,8 +21,37 @@ app.use(session({
 db.connect()
 
 // view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+const handlebarsHelpers = {
+  range: function(start, end) {
+    let result = '';
+    for (let i = start; i < end; ++i) {
+      result += `
+        <div class="seat">
+          <input type="checkbox" id="seat${i}" name="seats" value="${i}">
+          <label for="seat${i}">${i}</label>
+        </div>`;
+    }
+    return result;
+  },
+  eq: function(a, b) {
+    return a === b;
+  },
+  gt: function(a, b) {
+    return a > b;
+  }
+};
+app.engine('hbs', exphbs.engine({
+  extname: 'hbs',
+  defaultLayout: 'normalLayout',
+  layoutsDir: path.join(__dirname, 'views', 'layout'),
+  partialsDir: path.join(__dirname, 'views', 'partials'),
+  helpers: handlebarsHelpers
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

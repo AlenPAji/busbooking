@@ -17,6 +17,22 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
 
     <title>Admin Panel</title>
+    <style>
+        .add-route-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none; /* Added to remove underline from link */
+            display: inline-block; /* Added to make it look like a button */
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -30,31 +46,31 @@
 
         <div class="menu-items">
             <ul class="nav-links">
-                    <li><a href="/admin">
-                            <i class="uil uil-estate"></i>
-                            <span class="link-name">Dahsboard</span>
-                        </a></li>
-                    <li><a href="/admin/adminUsers">
-                            <i class="fi fi-rs-user"></i>
-                            <span class="link-name">Users</span>
-                        </a></li>
-                    <li><a href="/admin/buses">
-                            <i class="fi fi-rr-bus"></i>
-                            <span class="link-name">Buses</span>
-                        </a></li>
-                    <li><a href="/admin/reservation">
-                            <i class="fi fi-rr-memo-circle-check"></i>
-                            <span class="link-name">Reservations</span>
-                        </a></li>
-                    <li><a href="/admin/feedbacks">
-                            <i class="fi fi-rr-smiley-comment-alt"></i>
-                            <span class="link-name">FeedBacks</span>
-                        </a></li>
-                    <li><a href="/admin/routes">
-                            <i class="fi fi-rs-route"></i>
-                            <span class="link-name">Routes</span>
-                        </a></li>
-                </ul>
+                <li><a href="/admin">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Dashboard</span>
+                    </a></li>
+                <li><a href="/admin/adminUsers">
+                        <i class="fi fi-rs-user"></i>
+                        <span class="link-name">Users</span>
+                    </a></li>
+                <li><a href="/admin/buses">
+                        <i class="fi fi-rr-bus"></i>
+                        <span class="link-name">Buses</span>
+                    </a></li>
+                <li><a href="/admin/reservation">
+                        <i class="fi fi-rr-memo-circle-check"></i>
+                        <span class="link-name">Reservations</span>
+                    </a></li>
+                <li><a href="/admin/feedbacks">
+                        <i class="fi fi-rr-smiley-comment-alt"></i>
+                        <span class="link-name">FeedBacks</span>
+                    </a></li>
+                <li><a href="/admin/routes">
+                        <i class="fi fi-rs-route"></i>
+                        <span class="link-name">Routes</span>
+                    </a></li>
+            </ul>
             
             <ul class="logout-mode">
                 <li><a id="popupButton">
@@ -90,8 +106,8 @@
         <div class="dash-content">
             <div class="overview">
                 <div class="title">
-                    <i class="fi fi-rr-memo-circle-check"></i>
-                    <span class="text">Reservations</span>
+                    <i class="fi fi-rs-route"></i>
+                    <span class="text">Routes</span>
                 </div>
 
                 <div class="field" id="field">
@@ -99,27 +115,32 @@
                         <thead>
                             <tr class="table100-head">
                                 <th class="column1">Id</th>
-                                <th class="column2">Source</th>
-                                <th class="column3">Destination</th>
-                                <th class="column3">Status</th>
-                                <th style="padding: 0;" class="column4">Journey Data</th>
-                                <th class="column5">Booking Data</th>
-                                <th class="column6">Total Seats</th>
-                                <th class="column7">Total Fare</th>
-                                <th class="column8"
-                                    style="padding-right: 30px;">Delete</th>
+                                <th class="column2">Boarding Point</th>
+                                <th class="column3">Destination Point</th>
+                                <th class="column4">Number of Buses</th>
+                                <th class="column5">Enroll Bus</th>
                             </tr>
                         </thead>
                         <tbody class="UserData">
-                            <!-- Reservation Data -->
+                            {{#each routes}}
+
+                            <tr>
+                                <td class="column1">{{this._id}}</td>
+                                <td class="column2">{{boardingPoint}}</td>
+                                <td class="column3">{{destinationPoint}}</td>
+                                <td class="column4">{{busesEnrolled.length}}</td>
+                                <td class="column5"><a href="/admin/enroll/?id={{this._id}}&fare={{this.totalFare}}" class="enroll-button">Enroll Bus</a></td>
+                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
+    <a href="/admin/add-route" class="add-route-button">Add Route</a>
 <script src="./js/modeToggle.js"></script>
 <script src="./js/adminLogout.js"></script>
-<script src="./js/adminReservation.js"></script>
+<script src="./js/adminRoutes.js"></script>
 </body>
 </html>

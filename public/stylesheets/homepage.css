@@ -8,56 +8,49 @@
 }
 
 /* General styles */
-
 html {
-    height:100%;
-  }
-  
-  body {
-    margin:0;
-  }
-  
-  .bg {
-    animation:slide 3s ease-in-out infinite alternate;
-    background-image: linear-gradient(-60deg, rgb(16, 210, 207) 50%, #09f 50%);
-    bottom:0;
-    left:-50%;
-    opacity:.5;
-    position:fixed;
-    right:-50%;
-    top:0;
-    z-index:-1;
-  }
-  
-  .bg2 {
-    animation-direction:alternate-reverse;
-    animation-duration:4s;
-  }
-  
-  .bg3 {
-    animation-duration:5s;
-  }
-  
+    height: 100%;
+}
 
-  
-  h1 {
-    font-family:monospace;
-  }
-  
-  @keyframes slide {
+body {
+    margin: 0;
+}
+
+.bg {
+    animation: slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, rgb(16, 210, 207) 50%, #09f 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: .5;
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1;
+}
+
+.bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
+}
+
+.bg3 {
+    animation-duration: 5s;
+}
+
+h1 {
+    font-family: monospace;
+}
+
+@keyframes slide {
     0% {
-      transform:translateX(-25%);
+        transform: translateX(-25%);
     }
     100% {
-      transform:translateX(25%);
+        transform: translateX(25%);
     }
-  }
-
+}
 
 .container {
-    
-
-    background-image: url("");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -66,7 +59,7 @@ html {
     align-items: center;
     background-color: #e2eeed;
     height: 400px;
-    width: 200px;
+    width: 100%;
     border-radius: 30px;
 }
 
@@ -97,12 +90,12 @@ h1 {
     margin: 20px 0;
 }
 
-.field input[type="text"] {
-    width: 80%;
-    padding: 12px 20px 12px 50px;
+.field input[type="text"],
+.field input[type="date"] {
+    width: 100%;
+    padding: 12px 20px;
     font-size: 16px;
     border: 1px solid rgba(255, 255, 255, 0.23);
-    /* background-color: rgba(255, 255, 255, 0.25); */
     border-radius: 10px;
     transition: 0.1s all linear;
 }
@@ -111,17 +104,15 @@ h1 {
     color: rgba(34, 14, 14, 0.74);
     font-size: 14px;
     position: absolute;
-    top: 50%;
+    top: -20px;
     left: 20px;
-    transform: translateY(-50%);
     pointer-events: none;
 }
 
 /* Autocomplete styles */
 .autocomplete-container {
     position: relative;
-    width: 300px; /* Adjust the width as desired */
-    margin: 0 auto; /* Center the container */
+    width: 100%;
 }
 
 #autocomplete-input {
@@ -144,8 +135,8 @@ h1 {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     max-height: 200px;
-    /* overflow-y: auto; */
-    width:80%;
+    overflow-y: auto;
+    width: 100%;
 }
 
 .autocomplete-items div {
@@ -181,7 +172,8 @@ table {
     overflow: hidden;
 }
 
-th, td {
+th,
+td {
     padding: 12px 15px;
     text-align: center;
 }
@@ -215,15 +207,15 @@ tfoot td a:hover {
 }
 
 /* Responsive styles */
-
 @media (max-width: 768px) {
     .form {
         padding: 20px;
     }
 
-    .field input[type="text"] {
+    .field input[type="text"],
+    .field input[type="date"] {
         font-size: 14px;
-        padding: 10px 15px 10px 40px;
+        padding: 10px 15px;
     }
 
     .field label {
@@ -234,20 +226,32 @@ tfoot td a:hover {
         font-size: 20px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 8px;
     }
-} 
-#datepicker {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-size: 16px;
-  font-family:ui-sans-serif;
-  cursor: pointer;
 }
+
+#datepicker {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-family: ui-sans-serif;
+    cursor: pointer;
+}
+
 .bus-table-body tr.selected {
     background-color: #65beeb; /* Light blue background color */
     font-weight: bold; /* Bold text */
-  }
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    margin-top: 0; /* Adjust as necessary to align with date input */
+    width: 100%;
+}
