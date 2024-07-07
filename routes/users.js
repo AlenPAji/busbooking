@@ -54,7 +54,7 @@ router.post('/booking',verifyLogin, function(req, res, next) {
   console.log(req.body)
   routehelpers.sortingroutes(req.body.from,req.body.to,req.body.date).then((response)=>{
     console.log(response)
-    bushelpers.buslist(response,'2024-06-19').then((response)=>{
+    bushelpers.buslist(response,req.body.date).then((response)=>{
       res.render('viewtouser',{ user: true, layout: 'userLayout' ,buses:response})
     })
   })
